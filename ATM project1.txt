@@ -1,0 +1,116 @@
+#include<stdio.h>
+#include<stdlib.h>
+int amount =1000,pass=2011;
+long int mob = 9952556635;
+void withdraw();
+void bank();
+void fpass();
+void deposit();
+void otpcheck();
+void bank(){
+    int choice,pin,fp;
+    while(pin!=pass){
+         printf("Enter the Pin : ");
+        scanf("%d",&pin);
+        if(pin!=pass){
+    printf("\nPlease enter the Valid pin");
+    printf("\nForgot Password press 1 : ");
+    scanf("%d",&fp);
+    if(fp==1){
+        fpass();
+    }
+    else{
+        exit(0);
+    }
+        }
+    }
+    while(1){
+        printf("\n *****ATM*****\n");
+        printf("\n 1. Check Balance \n 2. Withdraw Cash \n 3. Deposit Cash \n 4. Exit\n");
+        printf("Enter Your Choice : ");
+        scanf("%d",&choice);
+        switch(choice){
+        case 1:
+        printf("\nYour Balance is : %d",amount);
+        break;
+        case 2:
+        withdraw();
+        break;
+        case 3:
+        deposit();
+        break;
+        case 4:
+        exit(0);
+        default :
+        printf("\n Invalid Choice\n");
+        }
+    }
+}
+void withdraw(){
+    int withdraw;
+    printf("\n Enter the Withdraw amount : ");
+    scanf("%d",&withdraw);
+    if(withdraw % 100 != 0){
+        printf("Please enter the amount multiplies of 100");
+    }
+    else if(withdraw > (amount - 500)){
+        printf("\n Insufficient Balance\n");
+    }
+    else {
+        amount = amount - withdraw;
+        printf("\n Please Collect your Cash");
+        printf("\n Your balance is : %d",amount);
+    }
+}
+void deposit(){
+    int deposit;
+    printf("\n Enter the amount to deposit : ");
+    scanf("%d",&deposit);
+    amount = amount + deposit;
+    printf("Your Balance is : %d",amount);
+}
+void fpass()
+{
+    int i,j,count=0;
+    long int mn;
+    printf("\n Please enter your registered Mobile Number : ");
+        scanf("%ld",&mn);
+    for(i=0;i<1;i++){
+        if(mob==mn){
+            ++count;
+        }
+    }
+    if(count==1){
+        otpcheck();
+    }
+    else{
+        printf("Please Enter correct Number");
+        fpass();
+    }
+   
+}
+void otpcheck(){
+    int i,j,count1=0,otp =234567,otp1,pin1;
+    printf("\n Otp: ");
+         printf("%d\n",otp);  
+    printf("Please enter the Otp : ");
+            scanf("%d",&otp1);  
+            for(i=0;i<1;i++){
+                if(otp==otp1){
+                    ++count1;
+                }
+            }
+            if(count1==1){
+                printf("Please enter the new pin : ");
+                scanf("%d",&pin1);
+                pass=pin1;
+                bank();
+            }
+            else{
+                printf("Please Enter correct Otp");
+                otpcheck();
+            }
+}
+int main(){
+    bank();
+}
